@@ -1,7 +1,7 @@
 /**
  * AI 算法类
  * @param row 棋盘的大小
- * @constructor 初始化AI 算法类
+ * @constructor 初始化 AI 算法类
  */
 function Algorithm(row) {
 	this.blankBoard = [];
@@ -47,20 +47,26 @@ function Algorithm(row) {
 		var badIndex, goodIndex; // 拦截棋位置，优势棋位置
 		var badNum = -1, // 威胁数值，优势数值
 			goodNum = -1;
+		var	black = this.blackBoard, //黑棋和白棋对象
+			white = this.whiteBoard;
 
         //求出需拦截的位置和优势的位置
 		for (var blank in this.blankBoard) {
-			var bad = this.evaluate(this.blankBoard[blank].x, this.blankBoard[blank].y, this.blackBoard, this.whiteBoard);
+			var x = this.blankBoard[blank].x,
+				y = this.blankBoard[blank].y;
+			var bad = this.evaluate(x, y, black, white);
 			if (bad > badNum) {
 				badNum = bad;
 				badIndex = blank;
 			}
-			var good = this.evaluate(this.blankBoard[blank].x, this.blankBoard[blank].y, this.whiteBoard, this.blackBoard);
+
+			var good = this.evaluate(x, y, white, black);
 			if (good > goodNum) {
 				goodNum = good;
 				goodIndex = blank;
 			}
 		}
+
 		//判断是否需要拦截
 		if (goodNum > badNum) {
 			return this.blankBoard[goodIndex];
@@ -88,7 +94,8 @@ function Algorithm(row) {
 	 * @returns {number} 胜率指数
 	 */
 	this.evaluate = function(posX, posY, other, we) {
-        var table = { // 威胁权重
+		//威胁权重
+        var table = {
             '2-': 0,
             '2+': 0,
             '3-': 0,
@@ -174,18 +181,22 @@ function Algorithm(row) {
             x--;
             y++;
         }
+
         if (we[this.coordsToString(x + 1, y - 1)] || we[this.coordsToString(x - 1, y + 1)]) {
             table[backslash + '-']++;
         } else {
             table[backslash + '+']++;
         }
+
         delete table['1+'];
         delete table['1-'];
+
         //求出权重值
         var score = 0;
         for (var key in table) {
             score += this.weightTable[key] * table[key];
         }
+
 		return score;
 	};
 
@@ -203,9 +214,9 @@ function Algorithm(row) {
 		var index = this.coordsToString(posX, posY);
 		var role = null;
 		var data = {
-				x: posX,
-				y: posY
-			};
+			x: posX,
+			y: posY
+		};
 		delete this.blankBoard[index];
 
 		//判断角色
@@ -274,6 +285,7 @@ function Algorithm(row) {
 			x--;
 			y++;
 		}
+
 		return Math.max(horizon, vertical, slash, backslash) >= 5;
 	};
 }

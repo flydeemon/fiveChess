@@ -1,5 +1,4 @@
 (function () {
-
     /**
      * 五子棋类
      * @param elem 根节点
@@ -25,10 +24,10 @@
         canvasElem: '', //棋盘 dom 元素
         canvasObj: '', //棋盘对象
         ROW: 0, //棋盘大小
-        OFFSET: 0,	//偏移量
+        OFFSET: 0, //偏移量
         OFFSET_MAX: 0, //最大偏移量
         BOX_SIZE: 0, //格子大小
-        ME_FLAG: true,
+        ME_FLAG: true, //角色定义，true 是玩家，false 是 AI
         chessBoard: [], //下棋记录
 
         /**
@@ -111,7 +110,6 @@
             if (isMe) {
                 gradient.addColorStop(0, '#0A0A0A');
                 gradient.addColorStop(1, '#636766');
-
             } else {
                 gradient.addColorStop(0, '#D1D1D1');
                 gradient.addColorStop(1, '#F9F9F9');
