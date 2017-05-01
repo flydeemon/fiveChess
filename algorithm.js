@@ -4,6 +4,7 @@
  * @constructor 初始化 AI 算法类
  */
 function Algorithm(row) {
+	this.ROW = row;
 	this.blankBoard = [];
 	this.blackBoard = [];
 	this.whiteBoard = [];
@@ -26,10 +27,10 @@ function Algorithm(row) {
 	/**
 	 * 初始化参数
 	 */
-	(function() {
+	this.init = function() {
 		var i, j, key;
-		for (i = 0; i < row; i++) {
-			for (j = 0; j < row; j++) {
+		for (i = 0; i < this.ROW; i++) {
+			for (j = 0; j < this.ROW; j++) {
 				key = i + '_' + j;
 				this.blankBoard[key] = {
 					x: i,
@@ -37,7 +38,12 @@ function Algorithm(row) {
 				};
 			}
 		}
-	}).bind(this)();
+
+		this.blackBoard = [];
+		this.whiteBoard = [];
+
+		return this;
+	};
 
 	/**
 	 * AI 下棋的坐标
@@ -116,44 +122,55 @@ function Algorithm(row) {
             horizon++;
             y++;
         }
+
         x = posX;
         y = posY;
+
         while (other[this.coordsToString(x, y - 1)]) {
             horizon++;
             y--;
         }
+
         //我方棋子的统计
         if (we[this.coordsToString(x, y + 1)] || we[this.coordsToString(x, y - 1)]) {
             table[horizon + '-']++;
         } else {
             table[horizon + '+']++;
         }
+
         x = posX;
         y = posY;
+
         //判断对方竖坐标所有棋子
         while (other[this.coordsToString(x + 1, y)]) {
             vertical++;
             x++;
         }
+
         x = posX;
         y = posY;
+
         while (other[this.coordsToString(x - 1, y)]) {
             vertical++;
             x--;
         }
+
         if (we[this.coordsToString(x + 1, y)] || we[this.coordsToString(x - 1, y)]) {
             table[vertical + '-']++;
         } else {
             table[vertical + '+']++;
         }
+
         x = posX;
         y = posY;
+
         //判断对方斜线坐标所有棋子
         while (other[this.coordsToString(x + 1, y + 1)]) {
             slash++;
             x++;
             y++;
         }
+
         x = posX;
         y = posY;
         while (other[this.coordsToString(x - 1, y - 1)]) {
@@ -161,21 +178,26 @@ function Algorithm(row) {
             x--;
             y--;
         }
+
         if (we[this.coordsToString(x + 1, y + 1)] || we[this.coordsToString(x - 1, y - 1)]) {
             table[slash + '-']++;
         } else {
             table[slash + '+']++;
         }
+
         x = posX;
         y = posY;
+
         //判断对方反斜线坐标所有棋子
         while (other[this.coordsToString(x + 1, y - 1)]) {
             backslash++;
             x++;
             y--;
         }
+
         x = posX;
         y = posY;
+
         while (other[this.coordsToString(x - 1, y + 1)]) {
             backslash++;
             x--;
@@ -239,47 +261,61 @@ function Algorithm(row) {
 			horizon++;
 			y++;
 		}
+
 		x = posX;
 		y = posY;
+
 		while (role[this.coordsToString(x, y - 1)]) {
 			horizon++;
 			y--;
 		}
+
 		x = posX;
 		y = posY;
+
 		while (role[this.coordsToString(x + 1, y)]) {
 			vertical++;
 			x++;
 		}
+
 		x = posX;
 		y = posY;
+
 		while (role[this.coordsToString(x - 1, y)]) {
 			vertical++;
 			x--;
 		}
+
 		x = posX;
 		y = posY;
+
 		while (role[this.coordsToString(x + 1, y + 1)]) {
 			slash++;
 			x++;
 			y++;
 		}
+
 		x = posX;
 		y = posY;
+
 		while (role[this.coordsToString(x - 1, y - 1)]) {
 			slash++;
 			x--;
 			y--;
 		}
+
 		x = posX;
 		y = posY;
+
 		while (role[this.coordsToString(x + 1, y - 1)]) {
 			backslash++;
 			x++;
 			y--;
 		}
+
 		x = posX;
 		y = posY;
+
 		while (role[this.coordsToString(x - 1, y + 1)]) {
 			backslash++;
 			x--;

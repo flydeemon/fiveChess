@@ -63,7 +63,7 @@
             this.root.appendChild(this.canvasElem);
             this.drawCanvas();
             this.canvasElem.addEventListener('click', this.handleClick.bind(this));
-            this.AI = AI;
+            this.AI = AI.init();
         },
 
         /**
@@ -154,6 +154,7 @@
             this.OVER_FLAG = false;
             this.canvasObj.clearRect(0, 0, this.canvasElem.width, this.canvasElem.height);
             this.drawCanvas();
+            this.AI.init(); //AI 算法初始化
             for (var i = 0; i < this.OFFSET; i++) {
                 this.chessBoard[i] = [];
                 for (var j = 0; j < this.OFFSET; j++) {
