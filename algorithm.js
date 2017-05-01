@@ -26,6 +26,7 @@ function Algorithm(row) {
 
 	/**
 	 * 初始化参数
+	 * @returns {Algorithm} 返回当前对象
 	 */
 	this.init = function() {
 		var i, j, key;
