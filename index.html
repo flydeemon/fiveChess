@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Js -- 五子棋</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+<div id="app" class="container"></div>
+</body>
+<script type="text/javascript" src="algorithm.js"></script>
+<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript">
+	var options = {
+		width: '450',
+		height: '450',
+		row: 15
+	};
+	var chess = new FiveLineChess('app', options, new Algorithm(options.row));
+</script>
+</html>
