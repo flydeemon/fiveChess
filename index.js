@@ -61,7 +61,7 @@
             this.canvasElem.width = ctx.width;
             this.canvasElem.height = ctx.height;
             this.canvasObj = this.canvasElem.getContext('2d');
-            this.root.append(this.canvasElem);
+            this.root.appendChild(this.canvasElem);
             this.drawCanvas();
             this.canvasElem.addEventListener('click', this.handleClick.bind(this));
             this.AI = AI;
